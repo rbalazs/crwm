@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  base:
+    network_mode: bridge
+    build:
+      context: ./.docker/base
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./var:/app/var:rw,delegated
+      - ./.composer:/var/www/.composer
+    expose:
+      - 9000
+    environment:
+      - DISPLAY=${DISPLAY}
+    devices:
+      - /dev/snd:/dev/snd
